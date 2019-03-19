@@ -55,6 +55,10 @@ def display_exit_message
   prompt('Come back soon! Bye!')
 end
 
+def clear_screen
+  system('clear') || system('cls')
+end
+
 loop do # play again loop
   welcome_message
 
@@ -78,18 +82,21 @@ loop do # play again loop
 
     if user_win.include?(computer_choice)
       user_point_counter += 1
-      puts "Computer chose #{computer_choice}.
+      clear_screen
+      puts "You chose #{user_input}, Computer chose #{computer_choice}.
           >>>>>>>>> You win.
           You: #{user_point_counter}, Computer: #{computer_point_counter}"
       break if user_point_counter >= 5
     elsif user_input == computer_choice
-      puts "Computer chose #{computer_choice}.
+      clear_screen
+      puts "Computer also chose #{computer_choice}.
           >>>>>>>>> Tie.
           You: #{user_point_counter}, Computer: #{computer_point_counter}"
       break if computer_point_counter >= 5
     else
       computer_point_counter += 1
-      puts "Computer chose #{computer_choice}.
+      clear_screen
+      puts "You chose #{user_input}, Computer chose #{computer_choice}.
          >>>>>>>>> Computer wins.
           You: #{user_point_counter}, Computer: #{computer_point_counter}"
       break if computer_point_counter >= 5
