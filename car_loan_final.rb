@@ -1,51 +1,75 @@
-# Car Loan Calculator
-#
-# Puts Welcome message
-# loop
-# Gets loan amount
-#   stores to variable p
-# gets APR
-# math to monthly, set variable monthy to j
-# gets loan duration in months j
-# plug in numbers in formula
-# add monthly payment
-# puts result monthly payment
-# Continue?
-# gets.chomp
-# break if n
-# continue if y
-# loop end
+loan_amount = ''
+percentage = ''
+percentage_rate = ''
+monthly_interest_rate = ''
 
 def prompt(message)
   puts("=> #{message}")
 end
 
-def valid_number?(num)
+def display_welcome_message
+  prompt('Welcome to the Car Payment Calculator!')
+end
+
+def positive_number?(num)
   num.to_f > 0
 end
 
-def valid_percentage?(num)
-  num.to_f < 1 && num.to_f > 0.005
+def display_invalid_number_message
+  prompt('Please write a valid positive number.')
 end
 
-loan_amount = ''
-percentage = ''
-percentage_rate = ''
+def display_enter_loan_amount_message
+  prompt('Please enter your total loan amount:')
+end
 
-prompt('Welcome to the Car Payment Calculator!')
+def retrieve_loan_amount
+  gets.chomp.delete(',').to_f
+end
+
+def display_enter_apr_amount_message
+  prompt('Please enter the Annual Percentage Rate (APR) as a percentage ___%:')
+end
+
+def valid_percentage?(num)
+  num.to_f < 1 && num.to_f >= 0.005
+end
+
+def retrieve_apr_percentage
+  gets.chomp.to_f
+end
+
+def display_time_in_months_message
+  prompt('Please enter the amount of time of your loan (in months):')
+end
+
+def display_recalculate_message
+  prompt('Recalculate? Type Y to continue, or any other key to exit.')
+end
+
+def recalculate?(answer)
+  answer == 'y'
+end
+
+def display_exit_message
+  prompt('Goodbye!')
+end
+
+display_welcome_message
 
 loop do # main loop
   loop do
-    prompt('Please enter your total loan amount:')
-    loan_amount = gets.chomp.delete(',').to_f
-    break if valid_number?(loan_amount)
-    prompt('Please write a valid number.')
+    display_enter_loan_amount_message
+    loan_amount = retrieve_loan_amount
+
+    break if positive_number?(loan_amount)
+    display_invalid_number_message
   end
 
-  prompt('Please enter the Annual Percentage Rate (APR) as a percentage ___%:')
+  display_enter_apr_amount_message
 
   loop do
-    percentage = gets.chomp.to_f
+    percentage = retrieve_apr_percentage
     percentage_rate = percentage / 100
     break if valid_percentage?(percentage_rate)
     prompt('Please enter the percentage number.
@@ -54,13 +78,13 @@ loop do # main loop
 
   monthly_interest_rate = percentage_rate / 12
 
-  prompt('Please enter the amount of time of your loan (in months):')
+  display_time_in_months_message
 
   loan_duration_months = ''
 
   loop do
     loan_duration_months = gets.chomp.to_i
-    break if valid_number?(loan_duration_months)
+    break if positive_number?(loan_duration_months)
     prompt("Please enter a positive integer.")
   end
 
@@ -72,9 +96,9 @@ loop do # main loop
 
   prompt("Your monthly loan amount payment is: #{monthly_payment}")
 
-  prompt('Recalculate? Type Y to continue, or any other key to exit.')
-  recalculate = gets.chomp.downcase
-  break if recalculate != 'y'
+  display_recalculate_message
+  answer = gets.chomp.downcase
+  break unless recalculate?(answer)
 end
 
-prompt('Goodbye!')
+display_exit_message
