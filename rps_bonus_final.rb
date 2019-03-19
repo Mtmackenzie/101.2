@@ -39,6 +39,22 @@ def input_options
         )
 end
 
+def display_invalid_input_message
+  prompt('Not a valid entry! Try again!')
+end
+
+def display_play_again_message
+  prompt('Play again? Type Q to exit, or any other key to continue.')
+end
+
+def play_again?(answer)
+  answer == "Q"
+end
+
+def display_exit_message
+  prompt('Come back soon! Bye!')
+end
+
 loop do # play again loop
   welcome_message
 
@@ -53,7 +69,7 @@ loop do # play again loop
       input_options
       user_input = gets.chomp.downcase
       break if valid_user_input?(user_input)
-      prompt('Not a valid entry! Try again!')
+      display_invalid_input_message
     end # end valid user entry loop
 
     computer_choice = VALID_CHOICES.sample()
@@ -87,10 +103,10 @@ loop do # play again loop
     puts '~~~~~~ Computer is the Grand Master! ~~~~~~~'
   end
 
-  prompt('Play again? Type Q to exit, or any other key to continue.')
-  quit = gets.chomp.upcase
-  break if quit == 'Q'
+  display_play_again_message
+  answer = gets.chomp.upcase
+  break if play_again?(answer)
   system('clear') || system('cls')
 end # play again loop
 
-prompt('Come back soon! Bye!')
+display_exit_message
