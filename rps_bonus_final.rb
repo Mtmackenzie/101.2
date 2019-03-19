@@ -113,7 +113,7 @@ loop do # play again loop
   display_play_again_message
   answer = gets.chomp.upcase
   break if play_again?(answer)
-  system('clear') || system('cls')
+  clear_screen
 end # play again loop
 
 display_exit_message
