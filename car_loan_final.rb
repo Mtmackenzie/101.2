@@ -2,6 +2,7 @@ loan_amount = ''
 percentage = ''
 percentage_rate = ''
 monthly_interest_rate = ''
+loan_duration_months = ''
 
 def prompt(message)
   puts("=> #{message}")
@@ -43,8 +44,12 @@ def display_time_in_months_message
   prompt('Please enter the amount of time of your loan (in months):')
 end
 
+def calculate_monthly_amount(amount, rate, duration)
+  amount * (rate / (1 - (1 + rate)**-duration))
+end
+
 def display_recalculate_message
-  prompt('Recalculate? Type Y to continue, or any other key to exit.')
+  prompt('Recalculate? Enter Y to continue, or any other key to exit.')
 end
 
 def recalculate?(answer)
@@ -88,9 +93,9 @@ loop do # main loop
     prompt("Please enter a positive integer.")
   end
 
-  monthly_payment = loan_amount *
-                    (monthly_interest_rate /
-                    (1 - (1 + monthly_interest_rate)**-loan_duration_months))
+  monthly_payment = calculate_monthly_amount(loan_amount,
+                                             monthly_interest_rate,
+                                             loan_duration_months)
 
   monthly_payment = monthly_payment.round(2)
 
