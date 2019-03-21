@@ -2,7 +2,7 @@ VALID_CHOICES = ['r', 'l', 'p', 'sc', 'sp']
 
 CHOICE_FULL_NAMES = { 'r' => ['rock'],
                       'p' => ['paper'],
-                      'sc'=> ['scissors'],
+                      'sc' => ['scissors'],
                       'l' => ['lizard'],
                       'sp' => ['Spock'] }
 
@@ -31,7 +31,8 @@ def welcome_message
   lizard eats paper, paper disproves Spock, Spock vaporizes rock,
   and, as it always has, rock crushes scissors."
   MSG
-  prompt("Play against the computer until #{NUMBER_OF_ROUNDS_TO_WIN} points to become the Grand Master!")
+  prompt("Play against the computer until #{NUMBER_OF_ROUNDS_TO_WIN}
+  points to become the Grand Master!")
 end
 
 def input_options
@@ -48,8 +49,8 @@ def input_options
 end
 
 def retrieve_user_input
-    input_options
-    gets.chomp.downcase
+  input_options
+  gets.chomp.downcase
 end
 
 def display_invalid_input_message
@@ -139,15 +140,15 @@ loop do # play again loop
     elsif tie?(user_input, computer_choice)
       clear_screen
       display_round_choices_message(user_input, computer_choice)
-          puts "======== Tie."
-          display_points_message(user_point_counter, computer_point_counter)
+      puts "======== Tie."
+      display_points_message(user_point_counter, computer_point_counter)
       break if computer_point_counter == NUMBER_OF_ROUNDS_TO_WIN
     else
       computer_point_counter += 1
       clear_screen
       display_round_choices_message(user_input, computer_choice)
-        puts "~~~~~~~~ Computer wins."
-        display_points_message(user_point_counter, computer_point_counter)
+      puts "~~~~~~~~ Computer wins."
+      display_points_message(user_point_counter, computer_point_counter)
       break if computer_point_counter == NUMBER_OF_ROUNDS_TO_WIN
     end
 
